@@ -1,0 +1,32 @@
+{
+  "name": "atlantisz-proxy",
+  "version": "1.0.0",
+  "description": "API proxy e-Kréta és Neptun rendszerekhez",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RuzsaGergely/Atlantisz.git"
+  },
+  "keywords": [
+    "neptun",
+    "kréta",
+    "api",
+    "proxy",
+    "sda"
+  ],
+  "author": "Ruzsa \"RuzGer\" Gergely",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/RuzsaGergely/Atlantisz/issues"
+  },
+  "homepage": "https://github.com/RuzsaGergely/Atlantisz#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "qs": "^6.9.4"
+  }
+}
