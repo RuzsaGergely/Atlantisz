@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 const settings = {
     "apikey": "7856d350-1fda-45f5-822d-e1a2f3f1acf0",
     "clientID": "919e0c1c-76a2-4646-a2fb-7085bbbf3c56",
-    "useragent": "Kreta.Ellenorzo/2.9.6.2019121703"
+    "useragent": "Kreta.Ellenorzo/2.9.15.2020060401"
 }
 
 axios.defaults.headers.common['apiKey'] = settings.apikey;
