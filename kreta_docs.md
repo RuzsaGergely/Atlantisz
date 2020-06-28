@@ -1,6 +1,25 @@
 # Atlantisz-Proxy / Kréta docs
 
-[TOC]
+## Tartalomjegyzék
+
+- [Atlantisz-Proxy / Kréta docs](#atlantisz-proxy---kr-ta-docs)
+  * [Mobilverzió lekérése](#mobilverzi--lek-r-se)
+  * [API-k lekérése](#api-k-lek-r-se)
+  * [Iskolák listájának lekérése](#iskol-k-list-j-nak-lek-r-se)
+  * [Bearer token lekérése](#bearer-token-lek-r-se)
+  * [Bearer token frissítése](#bearer-token-friss-t-se)
+  * [Intézmény információ lekérése](#int-zm-ny-inform-ci--lek-r-se)
+  * [Diák adatainak lekérése](#di-k-adatainak-lek-r-se)
+  * [Események lekérése](#esem-nyek-lek-r-se)
+  * [Órarend lekérése](#-rarend-lek-r-se)
+  * [Bejelentett számonkérések lekérése](#bejelentett-sz-monk-r-sek-lek-r-se)
+  * [Postaláda elemek lekérése](#postal-da-elemek-lek-r-se)
+    + [Specifikus postaláda elem lekérése](#specifikus-postal-da-elem-lek-r-se)
+  * [Tantárgyi átlagok lekérése](#tant-rgyi--tlagok-lek-r-se)
+  * [Tanári házifeladatok](#tan-ri-h-zifeladatok)
+    + [Tanári házifeladatok lekérése](#tan-ri-h-zifeladatok-lek-r-se)
+    + [Specifikus tanári házifeladat lekérése](#specifikus-tan-ri-h-zifeladat-lek-r-se)
+    + [Tanári házifeladatok megoldottnak jelölése](#tan-ri-h-zifeladatok-megoldottnak-jel-l-se)
 
 ## Mobilverzió lekérése
 
