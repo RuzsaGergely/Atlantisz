@@ -131,6 +131,26 @@ institute_code=xxxxxxxx&userName=xxxxxxxxx&password=xxxxxxxx&grant_type=password
 }
 ```
 
+## Bearer token frissítése
+
+**Request:**
+
+```
+POST xxxxxx.e-kreta.hu/idp/api/v1/Token
+Headers: {
+	Content-Type: application/x-www-form-urlencoded; charset=utf-8
+	User-Agent: Kreta.Ellenorzo/2.9.15.2020060401
+}
+```
+
+A bejelentkezési adatokat "urlencoded" kell elküldeni. Így néz ki:
+
+```
+refresh_token=XXXXXXXXXXX&grant_type=refresh_token&client_id=919e0c1c-76a2-4646-a2fb-7085bbbf3c56
+```
+
+**Response:**
+
 ## Intézmény információ lekérése
 
 **Request:**
