@@ -216,7 +216,7 @@ Header: {
 
 *A fromDate és toDate-et ki lehet hagyni és akkor mindent is kilistáz, vagy a helyére null-t is lehet írni.*
 
-Response:**
+**Response:**
 
 ```json
 {
@@ -556,6 +556,33 @@ Header: {
 	}
 }
 ```
+
+### Postaláda elem olvasottnak jelölése
+
+**Request:**
+
+```
+POST /integration-kretamobile-api/v1/kommunikacio/uzenetek/olvasott
+Header: {
+	User-Agent: Kreta.Ellenorzo/2.9.15.2020060401
+	Authorization: bearer <bearer_kódod>
+}
+```
+
+**Body:**
+
+```
+{
+  "isOlvasott": true,
+  "uzenetAzonositoLista": [
+    xxxxxx
+  ]
+}
+```
+
+**Response:**
+
+Nincs JSON response, csupán egy 204 (No content) jelzés
 
 ## Tantárgyi átlagok lekérése
 
