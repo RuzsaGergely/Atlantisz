@@ -2,7 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const bodyParser = require('body-parser');
 const qs = require('qs')
-var app = express();
+const app = express();
 
 app.use(bodyParser.json());
 
@@ -23,6 +23,7 @@ app.get('/kreta/getschools/:schoolID?', function (req, res) {
                 res.end(JSON.stringify(response.data))
             })
             .catch(error => {
+                res.setHeader('Content-Type', 'application/json');
                 res.end(JSON.stringify({ "code": "500", "message": error }))
             });
     } else {
@@ -32,6 +33,7 @@ app.get('/kreta/getschools/:schoolID?', function (req, res) {
                 res.end(JSON.stringify(response.data))
             })
             .catch(error => {
+                res.setHeader('Content-Type', 'application/json');
                 res.end(JSON.stringify({ "code": "500", "message": error }))
             });
     }
@@ -58,6 +60,7 @@ app.post('/kreta/getbearer', function (req, res) {
             res.end(JSON.stringify(response.data))
         })
         .catch(error => {
+            res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify({ "code": "500", "message": error }))
         });
 })
@@ -82,6 +85,7 @@ app.post('/kreta/refreshtoken', function (req, res) {
             res.end(JSON.stringify(response.data))
         })
         .catch(error => {
+            res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify({ "code": "500", "message": error }))
         });
 })
@@ -100,6 +104,7 @@ app.post('/kreta/studentdata', function (req, res) {
             res.end(JSON.stringify(response.data))
         })
         .catch(error => {
+            res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify({ "code": "500", "message": error }))
         });
 })
@@ -118,6 +123,7 @@ app.post('/kreta/getlessons', function (req, res) {
             res.end(JSON.stringify(response.data))
         })
         .catch(error => {
+            res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify({ "code": "500", "message": error }))
         });
 })
@@ -136,6 +142,7 @@ app.post('/kreta/getszamonkeresek', function (req, res) {
             res.end(JSON.stringify(response.data))
         })
         .catch(error => {
+            res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify({ "code": "500", "message": error }))
         });
 })
@@ -155,6 +162,7 @@ app.get('/kreta/getpostalada/:id?', function (req, res) {
                 res.end(JSON.stringify(response.data))
             })
             .catch(error => {
+                res.setHeader('Content-Type', 'application/json');
                 res.end(JSON.stringify({ "code": "500", "message": error }))
             });
     } else {
@@ -164,6 +172,7 @@ app.get('/kreta/getpostalada/:id?', function (req, res) {
                 res.end(JSON.stringify(response.data))
             })
             .catch(error => {
+                res.setHeader('Content-Type', 'application/json');
                 res.end(JSON.stringify({ "code": "500", "message": error }))
             });
     }
@@ -183,6 +192,7 @@ app.post('/kreta/postaladaelem/olvasott', function (req, res) {
             res.end(JSON.stringify({ "code": response.status }))
         })
         .catch(error => {
+            res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify({ "code": "500", "message": error }))
         });
 })
@@ -201,11 +211,12 @@ app.get('/kreta/atlagok', function (req, res) {
             res.end(JSON.stringify({ "code": response.data }))
         })
         .catch(error => {
+            res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify({ "code": "500", "message": error }))
         });
 })
 
-app.post('/kreta/tanarihazifeladat/:id?', function (req, res) {
+app.post('/kreta/tanarihazifeladat/', function (req, res) {
     //console.log('Got body:', req.body);
     let conf = {
         headers: {
@@ -213,51 +224,64 @@ app.post('/kreta/tanarihazifeladat/:id?', function (req, res) {
             'Authorization': 'Bearer ' + req.body["Authtoken"]
         }
     }
-    if (req.params.id != undefined) {
-        axios.get("https://" + req.body["School"] + ".e-kreta.hu/mapi/api/v1/HaziFeladat/TanarHaziFeladat/"+req.params.id, conf)
+    if (req.body["ID"] != null || req.body["ID"] != undefined) {
+        axios.get("https://" + req.body["School"] + ".e-kreta.hu/mapi/api/v1/HaziFeladat/TanarHaziFeladat/" + req.body["ID"], conf)
             .then(response => {
                 res.setHeader('Content-Type', 'application/json');
                 res.end(JSON.stringify(response.data))
             })
             .catch(error => {
+                res.setHeader('Content-Type', 'application/json');
                 res.end(JSON.stringify({ "code": "500", "message": error }))
             });
     } else {
         axios.get("https://" + req.body["School"] + ".e-kreta.hu/mapi/api/v1/LessonAmi?fromDate=" + req.body["fromDate"] + "&toDate=" + req.body["toDate"], conf)
             .then(response => {
+                let output = [];
+                let data = response.data;
+                for (let key in data) {
+                    if (data.hasOwnProperty(key)) {
+                        if (data[key].TeacherHomeworkId != null) {
+                            output.push({"TeacherHomeworkId": data[key].TeacherHomeworkId });
+                        }
+                    }
+                }
                 res.setHeader('Content-Type', 'application/json');
-                res.end(JSON.stringify(response.data))
+                res.end(JSON.stringify(output));
             })
             .catch(error => {
+                res.setHeader('Content-Type', 'application/json');
                 res.end(JSON.stringify({ "code": "500", "message": error }))
             });
     }
 })
 
-// Needs work
-/*app.post('/kreta/tanarihazifeladat_kesz', function (req, res) {
+app.post('/kreta/tanarihazifeladat/kesz', function (req, res) {
     //console.log('Got body:', req.body);
     let conf = {
         headers: {
             'User-Agent': settings.useragent,
             'Authorization': 'Bearer ' + req.body["Authtoken"],
-            "Content-Type": "application/json"
-        }
+            'Content-Type': 'application/json; charset=utf-8'
+        },
     }
-    console.log(JSON.stringify({"TanariHaziFeladatId": req.body["TanarHaziFeladatId"], "IsMegoldva": req.body["IsMegoldva"]}));
-    axios.post("https://" + req.body["School"] + ".e-kreta.hu/mapi/api/v1/HaziFeladat/Megoldva", JSON.stringify({"TanariHaziFeladatId": req.body["TanarHaziFeladatId"], "IsMegoldva": req.body["IsMegoldva"]}), conf)
+    let data = {
+
+    }
+    axios.post("https://" + req.body["School"] + ".e-kreta.hu/mapi/api/v1/HaziFeladat/Megoldva", JSON.stringify({ "TanarHaziFeladatId": req.body["TanarHaziFeladatId"], "IsMegoldva": req.body["IsMegoldva"] }), conf)
         .then(response => {
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify({ "code": response.status }))
         })
         .catch(error => {
+            res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify({ "code": "500", "message": error }))
         });
-})*/
+})
 // --- e-Kréta requestek vége ---
 
-var server = app.listen(8000, function () {
-    var host = server.address().address
-    var port = server.address().port
+let server = app.listen(8000, function () {
+    let host = server.address().address
+    let port = server.address().port
     console.log("Atlantisz figyel a http://%s:%s elérhetőségen...", host, port)
 })
