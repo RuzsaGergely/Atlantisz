@@ -22,11 +22,11 @@ Neptun requestek (fejlesztés alatt)
 - [x] Órarend lekérése
 - [x] Házifeladatok lekérése
 - [x] Átlagok lekérése
-- [ ] Házifeladatok késznek jelölése
+- [x] Házifeladatok késznek jelölése
 
 ### Neptun
 
-- [ ] Iskolák lekérdezése
+- [x] Iskolák lekérdezése
 - [ ] Adatvédelmi nyilatkozat lekérése
 - [ ] Képzések lekérdezése
 - [ ] Üzenetek lekérése

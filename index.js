@@ -2,6 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const bodyParser = require('body-parser');
 const qs = require('qs')
+const https = require('https')
 const app = express();
 
 app.use(bodyParser.json());
@@ -280,6 +281,25 @@ app.post('/kreta/tanarihazifeladat/kesz', function (req, res) {
 })
 // --- e-Kréta requestek vége ---
 
+// --- Neptun requestek ---
+app.get('/neptun/intezmenyek', function (req, res) {
+    // Rossz a cert, így át kell ugranom a verifyt
+    const instance = axios.create({
+        httpsAgent: new https.Agent({  
+            rejectUnauthorized: false
+        })
+    });
+    instance.post("https://mobilecloudservice.cloudapp.net/MobileServiceLib/MobileCloudService.svc/GetAllNeptunMobileUrls")
+        .then(response => {
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(response.data))
+        })
+        .catch(error => {
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ "code": "500", "message": error }))
+        });
+})
+// --- Neptun requestek vége ---
 let server = app.listen(8000, function () {
     let host = server.address().address
     let port = server.address().port
