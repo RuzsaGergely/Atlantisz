@@ -27,9 +27,9 @@ Neptun requestek (fejlesztés alatt)
 ### Neptun
 
 - [x] Iskolák lekérdezése
-- [ ] Adatvédelmi nyilatkozat lekérése
-- [ ] Képzések lekérdezése
-- [ ] Üzenetek lekérése
+- [x] Adatvédelmi nyilatkozat lekérése
+- [x] Képzések lekérdezése
+- [x] Üzenetek lekérése
 - [ ] Naptár lekérése
 - [ ] Időszakok lekérése
 - [ ] Időszak részleteinek lekérése

@@ -2,7 +2,8 @@ const express = require('express');
 const axios = require('axios');
 const bodyParser = require('body-parser');
 const qs = require('qs')
-const https = require('https')
+const https = require('https');
+const { isNumber } = require('util');
 const app = express();
 
 app.use(bodyParser.json());
@@ -299,6 +300,104 @@ app.get('/neptun/intezmenyek', function (req, res) {
             res.end(JSON.stringify({ "code": "500", "message": error }))
         });
 })
+
+app.post('/neptun/adatvedelem', function (req, res) {
+    //console.log('Got body:', req.body);
+    axios.post(req.body["School"] + "/GetPrivacyStatement")
+        .then(response => {
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(response.data))
+        })
+        .catch(error => {
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ "code": "500", "message": error }))
+        });
+})
+
+app.post('/neptun/kepzesek', function (req, res) {
+    //console.log('Got body:', req.body);
+    let data = {
+        "OnlyLogin":false,
+        "TotalRowCount":-1,
+        "ExceptionsEnum":0,
+        "UserLogin": req.body["Username"],
+        "Password": req.body["Password"],
+        "NeptunCode":null,
+        "CurrentPage": (isNumber(req.body["CurrentPage"]) && req.body["CurrentPage"] >= 0) ? req.body["CurrentPage"] : 0,
+        "StudentTrainingID":null,
+        "LCID":1038,
+        "ErrorMessage":null,
+        "MobileVersion":"1.5",
+        "MobileServiceVersion":0
+    }
+    axios.post(req.body["School"] + "/GetTrainings", data)
+        .then(response => {
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(response.data))
+        })
+        .catch(error => {
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ "code": "500", "message": error }))
+        });
+})
+
+app.post('/neptun/uzenetek', function (req, res) {
+    //console.log('Got body:', req.body);
+    let data = 
+        {
+            "TotalRowCount":-1,
+            "ExceptionsEnum":0,
+            "MessageID": (isNumber(req.body["MessageID"])) ? req.body["MessageID"] : 0,
+            "MessageSortEnum": (isNumber(req.body["MessageSort"])) ? req.body["MessageID"] : 0,
+            "UserLogin": req.body["Username"],
+            "Password": req.body["Password"],
+            "NeptunCode": null,
+            "CurrentPage": (isNumber(req.body["CurrentPage"]) && req.body["CurrentPage"] >= 0) ? req.body["CurrentPage"] : 0,
+            "StudentTrainingID": null,
+            "LCID":1038,
+            "ErrorMessage":null,
+            "MobileVersion":"1.5",
+            "MobileServiceVersion":0
+        }
+    axios.post(req.body["School"] + "/GetMessages", data)
+        .then(response => {
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(response.data))
+        })
+        .catch(error => {
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ "code": "500", "message": error }))
+        });
+})
+
+/*app.post('/neptun/naptar', function (req, res) {
+    //console.log('Got body:', req.body);
+    let data = 
+        {
+            "TotalRowCount":-1,   
+            "needAllDaylong":false,
+            "Time":true,
+            "Exam":true,
+            "Task":true,
+            "Apointment":true,
+            "RegisterList":true,
+            "Consultation":true,
+            "startDate":"\/Date(1571004000000)\/",
+            "endDate":"\/Date(1571349600000)\/",
+            "CurrentPage": (isNumber(req.body["CurrentPage"]) && req.body["CurrentPage"] >= 0) ? req.body["CurrentPage"] : 0,
+            "UserLogin": req.body["Username"],
+            "Password": req.body["Password"]
+        }
+    axios.post(req.body["School"] + "/GetCalendarData", data)
+        .then(response => {
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(response.data))
+        })
+        .catch(error => {
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ "code": "500", "message": error }))
+        });
+})*/
 // --- Neptun requestek vége ---
 let server = app.listen(8000, function () {
     let host = server.address().address
