@@ -11,7 +11,8 @@ app.use(bodyParser.json());
 const settings = {
     "apikey": "7856d350-1fda-45f5-822d-e1a2f3f1acf0",
     "clientID": "919e0c1c-76a2-4646-a2fb-7085bbbf3c56",
-    "useragent": "Kreta.Ellenorzo/2.9.15.2020060401"
+    "useragent": "Kreta.Ellenorzo/2.9.15.2020060401",
+    "port": 8000
 }
 
 axios.defaults.headers.common['apiKey'] = settings.apikey;
@@ -399,7 +400,7 @@ app.post('/neptun/uzenetek', function (req, res) {
         });
 })*/
 // --- Neptun requestek vége ---
-let server = app.listen(8000, function () {
+let server = app.listen(settings.port, function () {
     let host = server.address().address
     let port = server.address().port
     console.log("Atlantisz figyel a http://%s:%s elérhetőségen...", host, port)
