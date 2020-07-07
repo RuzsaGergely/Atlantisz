@@ -5,6 +5,7 @@ const qs = require('qs')
 const https = require('https');
 const { isNumber } = require('util');
 const fs = require('fs');
+const moment = require('moment');
 const app = express();
 
 app.use(bodyParser.json());
@@ -384,7 +385,7 @@ app.post('/neptun/uzenetek', function (req, res) {
         });
 })
 
-/*app.post('/neptun/naptar', function (req, res) {
+app.post('/neptun/naptar', function (req, res) {
     //console.log('Got body:', req.body);
     let data = 
         {
@@ -396,8 +397,8 @@ app.post('/neptun/uzenetek', function (req, res) {
             "Apointment":true,
             "RegisterList":true,
             "Consultation":true,
-            "startDate":"\/Date(1571004000000)\/",
-            "endDate":"\/Date(1571349600000)\/",
+            "startDate":"\/Date("+moment(req.body["StartDate"]).unix()*1000+")\/",
+            "endDate":"\/Date("+moment(req.body["EndDate"]).unix()*1000+")\/",
             "CurrentPage": (isNumber(req.body["CurrentPage"]) && req.body["CurrentPage"] >= 0) ? req.body["CurrentPage"] : 0,
             "UserLogin": req.body["Username"],
             "Password": req.body["Password"]
@@ -411,7 +412,47 @@ app.post('/neptun/uzenetek', function (req, res) {
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify({ error }))
         });
-})*/
+})
+
+app.post('/neptun/idoszakok/:id?', function (req, res) {
+    //console.log('Got body:', req.body);
+    if(req.params.id !== undefined){
+        let data = 
+        {
+            "TotalRowCount":-1,
+            "CurrentPage": (isNumber(req.body["CurrentPage"]) && req.body["CurrentPage"] >= 0) ? req.body["CurrentPage"] : 0,
+            "UserLogin": req.body["Username"],
+            "Password": req.body["Password"],
+            "PeriodTermID": req.params.id
+        }
+        axios.post(req.body["School"] + "/GetPeriods", data)
+            .then(response => {
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify(response.data))
+            })
+            .catch(error => {
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify({ error }))
+            });
+    } else {
+        let data = 
+        {
+            "TotalRowCount":-1,
+            "CurrentPage": (isNumber(req.body["CurrentPage"]) && req.body["CurrentPage"] >= 0) ? req.body["CurrentPage"] : 0,
+            "UserLogin": req.body["Username"],
+            "Password": req.body["Password"]
+        }
+        axios.post(req.body["School"] + "/GetPeriodTerms", data)
+            .then(response => {
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify(response.data))
+            })
+            .catch(error => {
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify({ error }))
+            });
+    }
+})
 // --- Neptun requestek vége ---
 
 // 404-es hiba kezelése

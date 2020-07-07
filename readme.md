@@ -6,7 +6,7 @@ Az Atlantisz-proxy egy Node.JS-ben írt API proxy e-Kréta és Neptun keretrends
 
 [e-Kréta requestek](https://documenter.getpostman.com/view/9426326/T17AkWTw)
 
-Neptun requestek (fejlesztés alatt)
+[Neptun requestek](https://documenter.getpostman.com/view/9426326/T17J9SWH)
 
 ## To-Do lista
 
@@ -30,9 +30,11 @@ Neptun requestek (fejlesztés alatt)
 - [x] Adatvédelmi nyilatkozat lekérése
 - [x] Képzések lekérdezése
 - [x] Üzenetek lekérése
-- [ ] Naptár lekérése
-- [ ] Időszakok lekérése
-- [ ] Időszak részleteinek lekérése
+- [x] Naptár lekérése
+- [x] Időszakok lekérése
+- [x] Időszak részleteinek lekérése
+
+A listáról mindent teljesítettem, de az "Issues" felületen szívesen várom az ötleteket esetleges új funkciókra.
 
 ## Felhasznált dokumentációk
 
