@@ -2,6 +2,8 @@
 
 Az Atlantisz-proxy egy Node.JS-ben írt API proxy e-Kréta és Neptun keretrendszerekhez. 
 
+**UPDATE: Mint arra felhívta egy kollégám a figyelmemet, az új Krétás app bevezetésével részben megváltozott az arra a rendszerre vonatkozó API működése. (A Neptunos API tudomásom szerint változatlan maradt.)**
+
 ## Atlantisz-Proxy API
 
 [e-Kréta requestek](https://documenter.getpostman.com/view/9426326/T17AkWTw)
